@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 
-import {
-  Thumbnail
-} from 'react-bootstrap/lib'
+import Image from 'react-bootstrap/Image'
 
 class Pic extends Component {
   constructor(props) {
@@ -16,7 +14,7 @@ class Pic extends Component {
     const isClicked = this.state.isClicked
     const image = this.props.image
     const src = isClicked ? "https://mbtskoudsalg.com/images/x-png-transparent-2.png" : image.src
-    return <Thumbnail className="pic" href="#" src={src} onClick={this.onClick(image)} />
+    return <Image thumbnail="true" className="pic" href="#" src={src} onClick={this.onClick(image)} />
   }
 
   onClick(image) {
