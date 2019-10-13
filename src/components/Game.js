@@ -1,24 +1,23 @@
 import React, { Component } from 'react'
 
 import './App.css'
-import Pic from './Pic.js'
-import Timer from './timer.js'
-import {
-  Grid,
-  Row,
-  Col,
-} from 'react-bootstrap/lib'
+import Pic from './Pic'
 
-const staticImg = require('./static-img.js')
-class App extends Component {
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import GameEngine from './game-engine';
+
+class Game extends Component {
   constructor(props) {
     super(props)
     this.state = {
       sizes: {
-        xs: 12,
-        sm: 4,
-        md: 4,
-        lg: 4,
+        xs: 7,// 48px per box (576px max)
+        sm: 5, // 64px (768px)
+        md: 4, // 82.6px (992px)
+        lg: 4, // 100 px (1200px)
+        xl: 4, // infinity/12 px  (infinity)
       },
       score: 0
     }
@@ -35,8 +34,6 @@ class App extends Component {
   }
 
   onClick(item) {
-    console.log(item)
-
     if (item.isWinner) {
       this.setState({
         score: this.state.score + 1
@@ -61,10 +58,9 @@ class App extends Component {
   }
 
   gridGen(items) {
-    const row = this.rowGen(items)
-    return <Grid>
-      {row}
-    </Grid>
+    return <Container>
+      {this.rowGen(items)}
+    </Container>
   }
 
   updateImages() {
@@ -74,14 +70,19 @@ class App extends Component {
   }
 
   getImages() {
-    const game = staticImg.get()
-    const images = game.winners.map((i) => {
+    const game = GameEngine.getGame({
+      h: 333,
+      w: 333
+    })
+
+    const images = [game.winner].map((i) => {
       i.isWinner = true
       return i
     }).concat(game.others.map((i) => {
       i.isWinner = false
       return i
     }))
+
     return this.shuffle(images)
   }
 
@@ -111,20 +112,12 @@ class App extends Component {
     }
     return (
       <div className="App">
-        <h1 className="App-title">Click on the <span role="img" aria-label="Smile">😃</span></h1>
-        <h1>Score: {this.state.score}</h1>
-        <Grid>
-          <Row className="show-grid">
-            <Col>
-              <Timer start={Date.now()} end={5} onFinish={this.onFinish.bind(this)} />
-            </Col>
-          </Row>
-        </Grid>
-
+        <h1 className="App-title">Click on the <span role="img" aria-label="Smile">😃</span> </h1>
         {out}
-      </div>
+        <h1> Score: {this.state.score}</h1>
+      </div >
     )
   }
 }
 
-export default App
+export default Game

@@ -1,0 +1,28 @@
+.App {
+  text-align: center;
+  color: rgb(119, 0, 93);
+}
+
+.App-header {
+  height: 150px;
+  padding: 20px;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+.signin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10%;
+}
+
+body {
+  background-color: #4e4e4e
+}
