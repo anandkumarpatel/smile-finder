@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/smile-finder/precache-manifest.1cceac55686f719e72db479de01c2234.js"
+  "/smile-finder/precache-manifest.8d4aaa5a4faf9629bd7593c7067821ae.js"
 );
 
 self.addEventListener('message', (event) => {
