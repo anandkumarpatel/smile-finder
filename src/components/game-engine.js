@@ -5,7 +5,6 @@ Image Object: {
 }
 
 */
-const staticItems = require('../media-items')
 
 class GameEngine {
   constructor() {
@@ -34,7 +33,10 @@ class GameEngine {
     if (!this.imageGetter) {
       // throw new Error("imageGetter not set")
       console.error("Image not set")
+      const staticItems = require('../example-media-items')
+
       this.imageGetter = {
+
         getOther: (dim) => {
           return convert(staticItems.others.mediaItems.pop(), dim)
         },
