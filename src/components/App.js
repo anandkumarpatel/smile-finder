@@ -28,6 +28,15 @@ class App extends Component {
           component={GamePage}
           gameEngine={this.state.gameEngine}
         />
+        <Route
+          exact path={"/smile-finder" + routes.LANDING}
+          component={SignInPage}
+        />
+        <Route
+          exact path={"/smile-finder" + routes.GAME}
+          component={GamePage}
+          gameEngine={this.state.gameEngine}
+        />
       </div>
     </Router>
   }

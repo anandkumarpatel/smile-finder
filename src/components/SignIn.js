@@ -56,7 +56,6 @@ class SignInForm extends Component {
               onFailure={this.responseGoogleFail}
             />
           </div>
-
         )
       case 2:
         const sItems = albums.map((p) => {
@@ -72,6 +71,14 @@ class SignInForm extends Component {
           </Form>
         )
       case 3:
+        var otherAlbum = albums.find((item) => {
+          return item.title === "game-other"
+        })
+
+        if (otherAlbum !== null) {
+          return this.albumSelect(otherAlbum.id, "otherAlbum", 2)
+        }
+
         const oItems = albums.map((p) =>
           <button onClick={() => this.albumSelect(p.id, "otherAlbum", 4)} key={p.id}>{p.title}</button>
         )
@@ -139,13 +146,38 @@ class SignInForm extends Component {
     const photosClient = new Photos(googleUser.accessToken)
     localStorage.setItem('googleUser', JSON.stringify(googleUser))
 
-    photosClient.albums.list()
+    return photosClient.albums.list()
       .then((list) => {
-        this.setState({
-          stage: 2,
+        var state = {
           photosClient,
-          albums: list.albums
+          albums: list.albums,
+          stage: 2,
+
+        }
+
+        var smileAlbum = state.albums.find((item) => {
+          return item.title === "game-smile"
         })
+
+        if (smileAlbum !== null && smileAlbum.id !== null) {
+          console.log("Found smile album", smileAlbum)
+          state["smileAlbum"] = smileAlbum.id
+          state.albums = state.albums.filter((s) => s.id !== smileAlbum.id)
+          state.stage = 3
+
+          var otherAlbum = state.albums.find((item) => {
+            return item.title === "game-other"
+          })
+
+          if (otherAlbum !== null && otherAlbum.id !== null) {
+            console.log("Found other album", smileAlbum)
+            state["otherAlbum"] = otherAlbum.id
+            state.albums = state.albums.filter((s) => s.id !== otherAlbum.id)
+            state.stage = 4
+          }
+        }
+
+        return this.setState(state)
       })
       .catch((err) => { console.log("Error login ", err) })
   }
