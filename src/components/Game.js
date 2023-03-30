@@ -8,14 +8,14 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import GameEngine from './game-engine';
 
-class Game extends Component {
+class GamePage extends Component {
   constructor(props) {
     super(props)
     this.state = {
       sizes: {
-        xs: 7,// 48px per box (576px max)
-        sm: 5, // 64px (768px)
-        md: 4, // 82.6px (992px)
+        xs: 12,// 48px per box (576px max)
+        sm: 6, // 64px (768px)
+        md: 6, // 82.6px (992px)
         lg: 4, // 100 px (1200px)
         xl: 4, // infinity/12 px  (infinity)
       },
@@ -70,7 +70,8 @@ class Game extends Component {
   }
 
   getImages() {
-    const game = GameEngine.getGame({
+    const gameEngine = new GameEngine(this.props.smileAlbum, this.props.otherAlbum)
+    const game = gameEngine.getGame({
       h: 333,
       w: 333
     })
@@ -83,18 +84,7 @@ class Game extends Component {
       return i
     }))
 
-    return this.shuffle(images)
-  }
-
-  shuffle(a) {
-    var j, x, i;
-    for (i = a.length - 1; i > 0; i--) {
-      j = Math.floor(Math.random() * (i + 1));
-      x = a[i];
-      a[i] = a[j];
-      a[j] = x;
-    }
-    return a;
+    return GameEngine.shuffle(images)
   }
 
   getLoader() {
@@ -120,4 +110,4 @@ class Game extends Component {
   }
 }
 
-export default Game
+export default GamePage

@@ -21,3 +21,7 @@ yarn-debug.log*
 yarn-error.log*
 
 example-*
+
+public/game-other
+public/game-smile
+public/bootstrap*
